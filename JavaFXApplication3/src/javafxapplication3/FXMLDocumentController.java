@@ -50,7 +50,11 @@ import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
     
-    
+   //new var added
+    File f = getFile();
+    PrintWriter pen = getPen2Write(f);
+
+    String currentDate = getCurrentDate(); 
    
     
   private  ScheduledExecutorService scheduler =
@@ -142,15 +146,21 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
+   
     @FXML
     private void Buy_BITCOIN(MouseEvent event) {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Buy_BITCOIN.isPressed() && !"".equals(TextField_BITCOIN.getText())) {
 
-            TextField_BITCOIN.clear();
-            Dilog.setContentText("Bitcoin_Buy");
+            Dilog.setContentText("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate);
             Dilog.showAndWait();
+            //insert to transaction list
+            Transactions_list.getItems().addAll("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
+
+            pen.print("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_BITCOIN.clear();
 
         }
     }
@@ -161,12 +171,14 @@ public class FXMLDocumentController implements Initializable {
         Dilog.setHeaderText(null);
         if (Sell_BITCOIN.isPressed() && !"".equals(TextField_BITCOIN.getText())) {
             System.out.println("sell");
-            TextField_BITCOIN.clear();
-            Dilog.setContentText("Bitcoin_Sell");
+
+            Dilog.setContentText("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate:" + currentDate);
             Dilog.showAndWait();
             //insert to transaction list
-            Transactions_list.getItems().addAll("test - 1 -sell - ", "test2");
-
+            Transactions_list.getItems().addAll("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_BITCOIN.clear();
         }
     }
 
@@ -175,9 +187,15 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Buy_ETHEREUM.isPressed() && !"".equals(TextField_ETHEREUM.getText())) {
-            TextField_ETHEREUM.clear();
-            Dilog.setContentText("Ethereum_Buy");
+
+            Dilog.setContentText("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate);
             Dilog.showAndWait();
+
+            //insert to transaction list
+            Transactions_list.getItems().addAll("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_ETHEREUM.clear();
         }
     }
 
@@ -186,9 +204,14 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Sell_ETHEREUM.isPressed() && !"".equals(TextField_ETHEREUM.getText())) {
-            TextField_ETHEREUM.clear();
-            Dilog.setContentText("Ethereum_Sell");
+
+            Dilog.setContentText("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate:" + currentDate);
             Dilog.showAndWait();
+            //insert to transaction list
+            Transactions_list.getItems().addAll("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_ETHEREUM.clear();
         }
     }
 
@@ -197,9 +220,16 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Buy_POLKADOT.isPressed() && !"".equals(TextField_POLKADOT.getText())) {
-            TextField_POLKADOT.clear();
-            Dilog.setContentText("Polkadot_Buy");
+
+            Dilog.setContentText("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate);
             Dilog.showAndWait();
+
+            //insert to transaction list
+            Transactions_list.getItems().addAll("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_POLKADOT.clear();
+
         }
 
     }
@@ -209,9 +239,15 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Sell_POLKADOT.isPressed() && !"".equals(TextField_POLKADOT.getText())) {
-            TextField_POLKADOT.clear();
-            Dilog.setContentText("Polkadot_Sell");
+            Dilog.setContentText("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate);
             Dilog.showAndWait();
+
+            //insert to transaction list
+            Transactions_list.getItems().addAll("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_ETHEREUM.clear();
+
         }
     }
 
@@ -220,9 +256,15 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Buy_DOGECOIN.isPressed() && !"".equals(TextField_DOGECOIN.getText())) {
-            TextField_DOGECOIN.clear();
-            Dilog.setContentText("Dogecoin_Buy");
+
+            Dilog.setContentText("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate);
             Dilog.showAndWait();
+
+            //insert to transaction list
+            Transactions_list.getItems().addAll("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_DOGECOIN.clear();
 
         }
     }
@@ -234,9 +276,16 @@ public class FXMLDocumentController implements Initializable {
         Dilog.setHeaderText(null);
 
         if (Sell_DOGECOIN.isPressed() && !"".equals(TextField_DOGECOIN.getText())) {
-            TextField_DOGECOIN.clear();
-            Dilog.setContentText("Dogecoin_Sell");
+
+            Dilog.setContentText("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate);
             Dilog.showAndWait();
+
+            //insert to transaction list
+            Transactions_list.getItems().addAll("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.flush();
+            TextField_DOGECOIN.clear();
+
         }
 
     }
@@ -401,7 +450,25 @@ public class FXMLDocumentController implements Initializable {
     
     
     
-    
+     public File getFile() {
+
+        try {
+            File f = new File("log.txt");
+            f.createNewFile();
+
+        } catch (Exception e) {
+        }
+        return f;
+    }
+
+    public PrintWriter getPen2Write(File f) {
+        try {
+            PrintWriter pen = new PrintWriter(f);
+        } catch (Exception e) {
+        }
+
+        return pen;
+    }
    
     
     
