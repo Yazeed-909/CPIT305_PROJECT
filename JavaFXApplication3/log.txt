@@ -1,0 +1,9 @@
+buy 12 of Bitcoin 
+ in date: null
+---------------------
+buy 12 of Ethereum 
+ in date: null
+---------------------
+sell 12 of Ethereum 
+date: null
+---------------------

@@ -4,11 +4,15 @@
  */
 package javafxapplication3;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -54,7 +58,7 @@ public class FXMLDocumentController implements Initializable {
     File f = getFile();
     PrintWriter pen = getPen2Write(f);
 
-    String currentDate = getCurrentDate(); 
+    String currentDate; 
    
     
   private  ScheduledExecutorService scheduler =
@@ -158,7 +162,7 @@ public class FXMLDocumentController implements Initializable {
             //insert to transaction list
             Transactions_list.getItems().addAll("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
 
-            pen.print("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_BITCOIN.clear();
 
@@ -176,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
             Dilog.showAndWait();
             //insert to transaction list
             Transactions_list.getItems().addAll("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------");
-            pen.print("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_BITCOIN.clear();
         }
@@ -193,7 +197,7 @@ public class FXMLDocumentController implements Initializable {
 
             //insert to transaction list
             Transactions_list.getItems().addAll("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_ETHEREUM.clear();
         }
@@ -209,7 +213,7 @@ public class FXMLDocumentController implements Initializable {
             Dilog.showAndWait();
             //insert to transaction list
             Transactions_list.getItems().addAll("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate: " + currentDate + "\n---------------------");
-            pen.print("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_ETHEREUM.getText() + " of Ethereum \ndate: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_ETHEREUM.clear();
         }
@@ -226,7 +230,7 @@ public class FXMLDocumentController implements Initializable {
 
             //insert to transaction list
             Transactions_list.getItems().addAll("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_POLKADOT.clear();
 
@@ -244,7 +248,7 @@ public class FXMLDocumentController implements Initializable {
 
             //insert to transaction list
             Transactions_list.getItems().addAll("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
-            pen.print("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_ETHEREUM.clear();
 
@@ -262,7 +266,7 @@ public class FXMLDocumentController implements Initializable {
 
             //insert to transaction list
             Transactions_list.getItems().addAll("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.print("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_DOGECOIN.clear();
 
@@ -282,7 +286,7 @@ public class FXMLDocumentController implements Initializable {
 
             //insert to transaction list
             Transactions_list.getItems().addAll("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
-            pen.print("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+            pen.print("sell " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_DOGECOIN.clear();
 
@@ -446,25 +450,27 @@ public class FXMLDocumentController implements Initializable {
     refreshDogecoin();
     refreshEthereum();
     refreshPolkadot();
-      
+    }
     
     
     
      public File getFile() {
 
         try {
-            File f = new File("log.txt");
+            f = new File("log.txt");
             f.createNewFile();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return f;
     }
 
     public PrintWriter getPen2Write(File f) {
         try {
-            PrintWriter pen = new PrintWriter(f);
-        } catch (Exception e) {
+             pen = new PrintWriter(f);
+        } catch (FileNotFoundException e) {
+                   System.out.println(e.getMessage());
         }
 
         return pen;
@@ -476,6 +482,6 @@ public class FXMLDocumentController implements Initializable {
     
     
     
-    }
+    
 
 }
