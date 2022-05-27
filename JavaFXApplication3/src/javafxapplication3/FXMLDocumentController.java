@@ -72,7 +72,7 @@ public class FXMLDocumentController implements Initializable {
             bitcoin_cap,bitcoin_volume,ethereum_1h,ethereum_24h,ethereum_7d,
             ethereum_cap,ethereum_volume,polkadot_1h,polkadot_24h,polkadot_7d,
             polkadot_cap,polkadot_volume,dogecoin_1h,dogecoin_24h,dogecoin_7d,
-            dogecoin_cap,dogecoin_volume;
+            dogecoin_cap,dogecoin_volume,Price_bitcoin_tab2,Price_ethereum_tab2,Price_polkadot_tab2,Price_doge_tab2;
     @FXML
     private TextField TextField_BITCOIN, TextField_ETHEREUM, TextField_POLKADOT, TextField_DOGECOIN;
 
@@ -302,6 +302,7 @@ public class FXMLDocumentController implements Initializable {
         
         my_task bitcoin_thread=new my_task(bitcoin);
         Price_bitcoin.textProperty().bind(bitcoin_thread.messageProperty());
+        Price_bitcoin_tab2.textProperty().bind(bitcoin_thread.messageProperty());
         
         
         
@@ -339,6 +340,9 @@ public class FXMLDocumentController implements Initializable {
      public void refreshEthereum(){
     my_task ethereum_thread=new my_task(ethereum);
     Price_ethereum.textProperty().bind(ethereum_thread.messageProperty());
+    Price_ethereum_tab2.textProperty().bind(ethereum_thread.messageProperty());
+    
+    
     ethereum_thread.valueProperty().addListener((ObservableValue<? extends Coin> observable, Coin oldValue, Coin newValue) -> {
         
        // Price_ethereum.setText(Formater.format(newValue.getPrice()));
@@ -368,8 +372,12 @@ public class FXMLDocumentController implements Initializable {
     
     
        public void refreshPolkadot(){
-        my_task polkadot_thread=new my_task(polkadot);
+    my_task polkadot_thread=new my_task(polkadot);
     Price_polkadot.textProperty().bind(polkadot_thread.messageProperty());
+    Price_polkadot_tab2.textProperty().bind(polkadot_thread.messageProperty());
+    
+    
+    
     polkadot_thread.valueProperty().addListener((ObservableValue<? extends Coin> observable, Coin oldValue, Coin newValue) -> {
         //Price_polkadot.setText(Formater.format(newValue.getPrice()));
         
@@ -396,6 +404,9 @@ public class FXMLDocumentController implements Initializable {
      public void refreshDogecoin(){
         my_task dogecoin_thread=new my_task(dogecoin);
     Price_dogecoin.textProperty().bind(dogecoin_thread.messageProperty());
+    Price_doge_tab2.textProperty().bind(dogecoin_thread.messageProperty());
+    
+    
     dogecoin_thread.valueProperty().addListener((ObservableValue<? extends Coin> observable, Coin oldValue, Coin newValue) -> {
        // Price_dogecoin.setText(Formater.format(newValue.getPrice()));
         

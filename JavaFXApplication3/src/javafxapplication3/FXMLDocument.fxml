@@ -341,7 +341,7 @@
                                  </font></TextField>
                               <Label alignment="CENTER" layoutX="445.0" layoutY="5.0" prefHeight="17.0" prefWidth="100.0" text="Amount : " textAlignment="RIGHT" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="Segoe UI" size="22.0" />
                                  </font>
                               </Label>
                               <Button fx:id="Buy_BITCOIN" layoutX="614.0" layoutY="32.0" mnemonicParsing="false" onMousePressed="#Buy_BITCOIN" prefHeight="45.0" prefWidth="111.0" style="-fx-background-radius: 55; -fx-background-color: #30B103;" text="Buy" textFill="WHITE">
@@ -373,6 +373,16 @@
                                     <Image url="@Group%2028.png" />
                                  </image>
                               </ImageView>
+                              <Label fx:id="Price_bitcoin_tab2" layoutX="285.0" layoutY="44.0" prefHeight="25.0" prefWidth="129.0" text=" " textFill="#f66f00">
+                                 <font>
+                                    <Font name="Segoe UI Black" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="249.0" layoutY="5.0" prefHeight="32.0" prefWidth="145.0" text="Price :" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI" size="22.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="160.0" layoutY="329.0" prefHeight="121.0" prefWidth="834.0" style="-fx-background-color: #1e2355; -fx-background-radius: 55;" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="80.0">
@@ -386,7 +396,7 @@
                                  </font></TextField>
                               <Label alignment="CENTER" layoutX="445.0" layoutY="5.0" prefHeight="17.0" prefWidth="100.0" text="Amount : " textAlignment="RIGHT" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="Segoe UI" size="22.0" />
                                  </font>
                               </Label>
                               <Button fx:id="Buy_ETHEREUM" layoutX="614.0" layoutY="33.0" mnemonicParsing="false" onMousePressed="#Buy_ETHEREUM" prefHeight="45.0" prefWidth="111.0" style="-fx-background-radius: 55; -fx-background-color: #30B103;" text="Buy" textFill="WHITE">
@@ -418,6 +428,16 @@
                                     <Image url="@Group%2029.png" />
                                  </image>
                               </ImageView>
+                              <Label fx:id="Price_ethereum_tab2" layoutX="285.0" layoutY="44.0" prefHeight="25.0" prefWidth="129.0" text=" " textFill="#f66f00">
+                                 <font>
+                                    <Font name="Segoe UI Black" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="249.0" layoutY="5.0" prefHeight="32.0" prefWidth="145.0" text="Price :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI" size="22.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="160.0" layoutY="498.0" prefHeight="121.0" prefWidth="834.0" style="-fx-background-color: #1e2355; -fx-background-radius: 55;" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="80.0">
@@ -431,7 +451,7 @@
                                  </font></TextField>
                               <Label alignment="CENTER" layoutX="445.0" layoutY="5.0" prefHeight="17.0" prefWidth="100.0" text="Amount : " textAlignment="RIGHT" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="Segoe UI" size="22.0" />
                                  </font>
                               </Label>
                               <Button fx:id="Buy_POLKADOT" layoutX="612.0" layoutY="33.0" mnemonicParsing="false" onMousePressed="#Buy_POLKADOT" prefHeight="45.0" prefWidth="111.0" style="-fx-background-radius: 55; -fx-background-color: #30B103;" text="Buy" textFill="WHITE">
@@ -463,6 +483,16 @@
                                     <Image url="@Group%2030.png" />
                                  </image>
                               </ImageView>
+                              <Label fx:id="Price_polkadot_tab2" layoutX="285.0" layoutY="44.0" prefHeight="25.0" prefWidth="129.0" text=" " textFill="#f66f00">
+                                 <font>
+                                    <Font name="Segoe UI Black" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="249.0" layoutY="5.0" prefHeight="32.0" prefWidth="145.0" text="Price :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI" size="22.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="160.0" layoutY="671.0" prefHeight="121.0" prefWidth="834.0" style="-fx-background-color: #1e2355; -fx-background-radius: 55;" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="80.0">
@@ -476,7 +506,7 @@
                                  </font></TextField>
                               <Label alignment="CENTER" layoutX="445.0" layoutY="5.0" prefHeight="17.0" prefWidth="100.0" text="Amount : " textAlignment="RIGHT" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="Segoe UI" size="22.0" />
                                  </font>
                               </Label>
                               <Button fx:id="Buy_DOGECOIN" layoutX="612.0" layoutY="33.0" mnemonicParsing="false" onMousePressed="#Buy_DOGECOIN" prefHeight="45.0" prefWidth="111.0" style="-fx-background-radius: 55; -fx-background-color: #30B103;" text="Buy" textFill="WHITE">
@@ -508,6 +538,16 @@
                                     <Image url="@Group%2031.png" />
                                  </image>
                               </ImageView>
+                              <Label fx:id="Price_doge_tab2" layoutX="285.0" layoutY="44.0" prefHeight="25.0" prefWidth="129.0" text=" " textFill="#f66f00">
+                                 <font>
+                                    <Font name="Segoe UI Black" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="249.0" layoutY="5.0" prefHeight="32.0" prefWidth="145.0" text="Price :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI" size="22.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>
