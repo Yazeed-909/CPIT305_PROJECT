@@ -4,6 +4,7 @@
  */
 package javafxapplication3;
 
+import com.litesoftwares.coingecko.exception.CoinGeckoApiException;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javafx.concurrent.Task;
@@ -22,12 +23,16 @@ public class my_task extends Task<Coin>{
     @Override
     protected Coin call() throws Exception {
         while(true) {
+            try{
             coin.UpdateData();         
             updateValue(coin);
             updateMessage(Formater.format(coin.getPrice()));
             coin.print();
             Thread.sleep(4000);
-    
+            }catch(CoinGeckoApiException c){
+                System.out.println(c.getError());
+                Thread.sleep(70000);
+            
         }
         
         
@@ -39,4 +44,5 @@ public class my_task extends Task<Coin>{
 
     
    
+}
 }

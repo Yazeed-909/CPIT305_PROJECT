@@ -52,24 +52,24 @@ public class Coin extends Thread{
     
     
     
-    public void print(){
-        
-        
-        
-        
-        
-        System.out.println(Name);
-        System.out.println("Price "+Price);
-        System.out.println("Low_24h "+Low_24h);
-        System.out.println("High_24h "+High_24h);
-        System.out.println("Change_in_1h "+Change_in_1h);
-        System.out.println("Change_in_24h "+Change_in_24h);
-        System.out.println("Change_in_7d "+Change_in_7d);
-        System.out.println("Total_Volume "+Total_Volume);
-        System.out.println("Market_Cap "+Market_Cap);
+  public  synchronized void print(){
+
+
+
+
+
+        System.out.println("* "+Name+" *");
+        System.out.println("Price: "+Price);
+        System.out.println("Low_24h: "+Low_24h);
+        System.out.println("High_24h: "+High_24h);
+        System.out.println("Change_in_1h: "+Change_in_1h);
+        System.out.println("Change_in_24h: "+Change_in_24h);
+        System.out.println("Change_in_7d: "+Change_in_7d);
+        System.out.println("Total_Volume: "+Total_Volume);
+        System.out.println("Market_Cap: "+Market_Cap);
+        System.out.println("-------------------------");
 
     }
-    
     
     
     

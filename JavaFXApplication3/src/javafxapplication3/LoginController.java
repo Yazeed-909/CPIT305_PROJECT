@@ -7,9 +7,12 @@ package javafxapplication3;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -62,12 +66,43 @@ public class LoginController implements Initializable {
    public void login(ActionEvent event) throws IOException{
        
        if(Check_for_errors()==true){
-       FXMLLoader loader=new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-       Parent root = loader.load();
-       Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-       Scene Scene=new Scene(root);
-       stage.setScene(Scene);
-       stage.show();
+           
+           
+           try {
+               DB d=DB.getInstance();
+               UserINFO userINFO=d.retrieveUser(Email.getText());
+               if(userINFO==null){
+                   
+                   System.out.println("User not found"); 
+                   
+                   
+               }else if(!userINFO.getPassword().equals(Password.getText())){
+                   System.out.println("Wrong password");
+               }else{
+                    
+               FXMLLoader loader=new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+               Parent root = loader.load();
+               Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+               FXMLDocumentController controller = loader.getController();
+               controller.userinfo =userINFO;
+               Scene Scene=new Scene(root);
+               stage.setScene(Scene);
+               stage.show();
+               }
+               
+               
+               
+              
+               
+               
+               
+               
+               
+               
+              
+           } catch (SQLException ex) {
+               Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+           }
         
 
        }
