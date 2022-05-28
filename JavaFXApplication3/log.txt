@@ -1,3 +1,0 @@
-buy 12 of Bitcoin 
- in date: null
----------------------

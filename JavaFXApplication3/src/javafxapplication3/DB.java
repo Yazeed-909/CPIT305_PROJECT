@@ -24,7 +24,6 @@ public class DB {
 
             // local db Connection
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crypto", "root", "123456");
-
             stm = con.createStatement();
             stm.executeUpdate("CREATE TABLE IF NOT EXISTS Users "
                     + "(UserID int primary key AUTO_INCREMENT, FullName varchar(250) NOT NULL, Email varchar(250) NOT NULL, Password varchar(50) NOT NULL, BirthDay date NOT NULL, Gender varchar(6) NOT NULL) ");

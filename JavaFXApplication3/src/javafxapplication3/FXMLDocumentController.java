@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -29,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -59,14 +59,14 @@ public class FXMLDocumentController implements Initializable {
     File f = getFile();
     PrintWriter pen = getPen2Write(f);
 
-    String currentDate =getCurrentDate() ; 
+    String currentDate; 
    
     
   private  ScheduledExecutorService scheduler =
      Executors.newScheduledThreadPool(1);
     @FXML
     private Button Buy_BITCOIN, Buy_ETHEREUM, Buy_POLKADOT, Buy_DOGECOIN,
-    Sell_BITCOIN, Sell_ETHEREUM, Sell_POLKADOT, Sell_DOGECOIN,logout;
+    Sell_BITCOIN, Sell_ETHEREUM, Sell_POLKADOT, Sell_DOGECOIN,logout,Add_balance;
     @FXML
     private Label label,Name=new Label(""),Email=new Label(""),Gender=new Label(""),Birthday=new Label(""),Date_of_join=new Label(""),
             Price_bitcoin,Price_dogecoin,Price_polkadot,Price_ethereum,bitcoin_1h,bitcoin_24h,bitcoin_7d,
@@ -106,6 +106,18 @@ public class FXMLDocumentController implements Initializable {
        
         
     }
+      @FXML
+    private void Add_balance(ActionEvent event) {
+          
+   
+        
+        
+
+    }
+    
+    
+    
+    
      @FXML
     private void logout(ActionEvent e) throws IOException{
       
@@ -488,11 +500,7 @@ public class FXMLDocumentController implements Initializable {
         return pen;
     }
    
-    public String getCurrentDate() {
-        Date date = new Date();
-        SimpleDateFormat  formatter = new SimpleDateFormat("dd/MM/yy");
-        return formatter.format(date);
-    }
+    
     
     
     
