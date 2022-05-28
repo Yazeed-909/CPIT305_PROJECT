@@ -593,6 +593,11 @@
                                     <Font size="42.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="Add_balance" layoutX="771.0" layoutY="176.0" mnemonicParsing="false" onAction="#Add_balance" prefHeight="52.0" prefWidth="181.0" style="-fx-background-color: DB7415;" text="Add balance" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                         <Label layoutX="136.66666666666669" layoutY="403.0" prefHeight="62.0" prefWidth="267.0" text="Transactions" textFill="WHITE" AnchorPane.rightAnchor="740.0">
