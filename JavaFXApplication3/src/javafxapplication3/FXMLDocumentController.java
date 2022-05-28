@@ -9,16 +9,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Date;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,7 +52,7 @@ public class FXMLDocumentController implements Initializable {
     File f = getFile();
     PrintWriter pen = getPen2Write(f);
     my_task bitcoin_thread, ethereum_thread, polkadot_thread, dogecoin_thread;
-    String currentDate;
+    String currentDate=getCurrentDate();
     protected UserINFO userinfo;
     private ScheduledExecutorService scheduler
             = Executors.newScheduledThreadPool(1);
@@ -87,22 +89,32 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void Add_balance(ActionEvent event) {
-        
-            TextInputDialog dialog = new TextInputDialog("");
-            dialog.setContentText("Balance amount: ");
-            dialog.setTitle("");
-            dialog.setHeaderText("Please enter your Balance");
-            dialog.showAndWait();
-            if (isNumeric(dialog.getResult())) {
-                Wallet_balance.setText(dialog.getResult());
-                DB db=DB.getInstance();
-                db.UpdateBalance(Double.parseDouble(dialog.getResult()), userinfo.getUserid());
+
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setContentText("Balance amount: ");
+        dialog.setTitle("");
+        dialog.setHeaderText("Please enter your Balance");
+        dialog.showAndWait();
+        if (isNumeric(dialog.getResult())) {
+          
+            
+           
+            try {
+                DB db = DB.getInstance();
                 
-            }else{
-                Alert a=new Alert(Alert.AlertType.WARNING,"enter a numeric value");
-                a.showAndWait();
+                double new_balance=Double.valueOf(dialog.getResult())+Double.valueOf(Wallet_balance.getText());
+
+                db.UpdateBalance(new_balance, userinfo.getUserid());
+                userinfo=db.retrieveUser(userinfo.getEmail());
+                Wallet_balance.setText(String.valueOf(userinfo.getBalance()));
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING, "enter a numeric value");
+            a.showAndWait();
+        }
 
     }
 
@@ -146,7 +158,7 @@ public class FXMLDocumentController implements Initializable {
 
         }
         if (Button_Wallet.isPressed()) {
-
+        Wallet_balance.setText(String.valueOf((userinfo.getBalance())));
             Tab_Pane.getSelectionModel().select(2);
 
         }
@@ -163,30 +175,41 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void Buy_BITCOIN(MouseEvent event
-    ) {
+    private void Buy_BITCOIN(MouseEvent event) {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
+
         if (Buy_BITCOIN.isPressed() && !"".equals(TextField_BITCOIN.getText())) {
 
-            Dilog.setContentText("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate);
-            Dilog.showAndWait();
-            //insert to transaction list
-            Transactions_list.getItems().addAll("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
+           
+               DB db=DB.getInstance();
+               
+               db.UpdateBalance((userinfo.getBalance()-(bitcoin.getPrice()*Double.parseDouble(TextField_BITCOIN.getText()))), userinfo.getUserid());
+                try {
+                    userinfo=db.retrieveUser(userinfo.getEmail());
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               Dilog.setContentText("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate);
+                Dilog.showAndWait();
+                //insert to transaction list
+                Transactions_list.getItems().addAll("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------");
 
-            pen.print("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------\n");
-            pen.flush();
-            TextField_BITCOIN.clear();
+                pen.print("buy " + TextField_BITCOIN.getText() + " of Bitcoin \n in date: " + currentDate + "\n---------------------\n");
+                pen.flush();
+                TextField_BITCOIN.clear();
+
+            
 
         }
     }
 
     @FXML
-    private void Sell_BITCOIN(MouseEvent event
-    ) {
+    private void Sell_BITCOIN(MouseEvent event) {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Sell_BITCOIN.isPressed() && !"".equals(TextField_BITCOIN.getText())) {
+
             System.out.println("sell");
 
             Dilog.setContentText("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate:" + currentDate);
@@ -196,6 +219,7 @@ public class FXMLDocumentController implements Initializable {
             pen.print("sell " + TextField_BITCOIN.getText() + " of Bitcoin \ndate: " + currentDate + "\n---------------------\n");
             pen.flush();
             TextField_BITCOIN.clear();
+
         }
     }
 
@@ -206,15 +230,25 @@ public class FXMLDocumentController implements Initializable {
         Dilog.setHeaderText(null);
         if (Buy_ETHEREUM.isPressed() && !"".equals(TextField_ETHEREUM.getText())) {
 
-            Dilog.setContentText("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate);
-            Dilog.showAndWait();
+            
+               DB db=DB.getInstance();
+               
+               db.UpdateBalance((userinfo.getBalance()-(ethereum.getPrice()*Double.parseDouble(TextField_ETHEREUM.getText()))), userinfo.getUserid());
+               try {
+                    userinfo=db.retrieveUser(userinfo.getEmail());
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               Dilog.setContentText("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate);
+                Dilog.showAndWait();
 
-            //insert to transaction list
-            Transactions_list.getItems().addAll("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------\n");
-            pen.flush();
-            TextField_ETHEREUM.clear();
-        }
+                //insert to transaction list
+                Transactions_list.getItems().addAll("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------");
+                pen.print("buy " + TextField_ETHEREUM.getText() + " of Ethereum \n in date: " + currentDate + "\n---------------------\n");
+                pen.flush();
+                TextField_ETHEREUM.clear();
+            
+        } 
     }
 
     @FXML
@@ -241,15 +275,25 @@ public class FXMLDocumentController implements Initializable {
         Dilog.setHeaderText(null);
         if (Buy_POLKADOT.isPressed() && !"".equals(TextField_POLKADOT.getText())) {
 
-            Dilog.setContentText("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate);
-            Dilog.showAndWait();
+           
+               DB db=DB.getInstance();
+               
+               db.UpdateBalance((userinfo.getBalance()-(polkadot.getPrice()*Double.parseDouble(TextField_POLKADOT.getText()))), userinfo.getUserid());
+                try {
+                    userinfo=db.retrieveUser(userinfo.getEmail());
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               Dilog.setContentText("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate);
+                Dilog.showAndWait();
 
-            //insert to transaction list
-            Transactions_list.getItems().addAll("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------\n");
-            pen.flush();
-            TextField_POLKADOT.clear();
+                //insert to transaction list
+                Transactions_list.getItems().addAll("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------");
+                pen.print("buy " + TextField_POLKADOT.getText() + " of Polkadot \n in date: " + currentDate + "\n---------------------\n");
+                pen.flush();
+                TextField_POLKADOT.clear();
 
+          
         }
 
     }
@@ -278,18 +322,28 @@ public class FXMLDocumentController implements Initializable {
         Alert Dilog = new Alert(Alert.AlertType.INFORMATION);
         Dilog.setHeaderText(null);
         if (Buy_DOGECOIN.isPressed() && !"".equals(TextField_DOGECOIN.getText())) {
+             
+               DB db=DB.getInstance();
+               
+               db.UpdateBalance((userinfo.getBalance()-(dogecoin.getPrice()*Double.parseDouble(TextField_DOGECOIN.getText()))), userinfo.getUserid());
+                try {
+                    userinfo=db.retrieveUser(userinfo.getEmail());
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+                Dilog.setContentText("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate);
+                Dilog.showAndWait();
 
-            Dilog.setContentText("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate);
-            Dilog.showAndWait();
+                //insert to transaction list
+                Transactions_list.getItems().addAll("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
+                pen.print("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------\n");
+                pen.flush();
+                TextField_DOGECOIN.clear();
 
-            //insert to transaction list
-            Transactions_list.getItems().addAll("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------");
-            pen.print("buy " + TextField_DOGECOIN.getText() + " of Dogecoin \n in date: " + currentDate + "\n---------------------\n");
-            pen.flush();
-            TextField_DOGECOIN.clear();
-
+            } 
         }
-    }
+    
 
     @FXML
     private void Sell_DOGECOIN(MouseEvent event
@@ -467,5 +521,12 @@ public class FXMLDocumentController implements Initializable {
 
         return pen;
     }
-
+    
+public String getCurrentDate(){
+    
+    Date date=new Date();
+    SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yy");
+    return  formatter.format(date);
+    
+}
 }

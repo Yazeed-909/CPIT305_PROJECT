@@ -36,10 +36,11 @@ import javafx.stage.Stage;
  * @author yzeed
  */
 public class LoginController implements Initializable {
+
     @FXML
     private Button Signin_button;
     @FXML
-    private Label Email_error,Password_error;
+    private Label Email_error, Password_error;
     @FXML
     private PasswordField Password;
     @FXML
@@ -47,119 +48,99 @@ public class LoginController implements Initializable {
     @FXML
     private Hyperlink Signup_link;
     @FXML
-    private boolean Email_flag,Password_flag;
-    @FXML
-    
-     public void Switch_to_register(ActionEvent event) throws IOException{
-         
-       FXMLLoader loader=new FXMLLoader(getClass().getResource("Register.fxml"));
-       Parent root = loader.load();
-       Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-       Scene Scene=new Scene(root);
-       stage.setScene(Scene);
-       stage.show();
-         
-         
-     }
-  
-   @FXML
-   public void login(ActionEvent event) throws IOException{
-       
-       if(Check_for_errors()==true){
-           
-           
-           try {
-               DB d=DB.getInstance();
-               UserINFO userINFO=d.retrieveUser(Email.getText());
-               if(userINFO==null){
-                   
-                   System.out.println("User not found"); 
-                   
-                   
-               }else if(!userINFO.getPassword().equals(Password.getText())){
-                   System.out.println("Wrong password");
-               }else{
-                    
-               FXMLLoader loader=new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-               Parent root = loader.load();
-               Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-               FXMLDocumentController controller = loader.getController();
-               controller.userinfo =userINFO;
-               Scene Scene=new Scene(root);
-               stage.setScene(Scene);
-               stage.show();
-               }
-               
-               
-               
-              
-               
-               
-               
-               
-               
-               
-              
-           } catch (SQLException ex) {
-               Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-           }
-        
+    private boolean Email_flag, Password_flag;
 
-       }
-     
-   }
-    public boolean Check_for_errors(){
-        
-         String errorStyle = String.format("-fx-border-color: RED; -fx-border-radius: 5;");
-         String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-radius: 5;");
-       
-       if(Email.getText().isEmpty()){
-         Email.setStyle(errorStyle);
-         Email_error.setText("Enter a Email");
-         Email_flag=false;
-      }else if(!Email.getText().contains("@")){
-         Email.setStyle(errorStyle);
-         Email_error.setText("Enter a valid Email");
-         Email_flag=false;
-      }else{
-           Email.setStyle(successStyle);
-           Email_error.setText("");
-           Email_flag=true;
-           
-      } 
-      
-      if(Password.getText().isEmpty()){
-         Password.setStyle(errorStyle);
-         Password_error.setText("Enter a Password");
-         Password_flag=false;
-      }
-      else{
-           Password.setStyle(successStyle);
-           Password_error.setText("");
-           Password_flag=true;
-      } 
-      
-     
-      
-      
-      
-      
-        return Password_flag==true&&Email_flag==true;
-      
-      
-      
-      
-            
-        
-        
+    @FXML
+
+    public void Switch_to_register(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene Scene = new Scene(root);
+        stage.setScene(Scene);
+        stage.show();
+
     }
+
+    @FXML
+    public void login(ActionEvent event) {
+
+        if (Check_for_errors() == true) {
+
+            try {
+                DB d = DB.getInstance();
+                UserINFO userINFO = d.retrieveUser(Email.getText());
+                if (userINFO == null) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "User not found");
+
+                    alert.showAndWait();
+
+                } else if (!userINFO.getPassword().equals(Password.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Wrong password");
+                    alert.showAndWait();
+                } else {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    FXMLDocumentController controller = loader.getController();
+                    controller.userinfo = userINFO;
+                    Scene Scene = new Scene(root);
+                    stage.setScene(Scene);
+                    stage.show();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        }
+
+    }
+
+    public boolean Check_for_errors() {
+
+        String errorStyle = String.format("-fx-border-color: RED; -fx-border-radius: 5;");
+        String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-radius: 5;");
+
+        if (Email.getText().isEmpty()) {
+            Email.setStyle(errorStyle);
+            Email_error.setText("Enter a Email");
+            Email_flag = false;
+        } else if (!Email.getText().contains("@")) {
+            Email.setStyle(errorStyle);
+            Email_error.setText("Enter a valid Email");
+            Email_flag = false;
+        } else {
+            Email.setStyle(successStyle);
+            Email_error.setText("");
+            Email_flag = true;
+
+        }
+
+        if (Password.getText().isEmpty()) {
+            Password.setStyle(errorStyle);
+            Password_error.setText("Enter a Password");
+            Password_flag = false;
+        } else {
+            Password.setStyle(successStyle);
+            Password_error.setText("");
+            Password_flag = true;
+        }
+
+        return Password_flag == true && Email_flag == true;
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-        
-        
-        
-    }    
-    
-    
+
+    }
+
 }

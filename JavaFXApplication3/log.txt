@@ -1,0 +1,6 @@
+buy 5000 of Dogecoin 
+ in date: null
+---------------------
+buy 500 of Polkadot 
+ in date: null
+---------------------
