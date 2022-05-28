@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -58,7 +59,7 @@ public class FXMLDocumentController implements Initializable {
     File f = getFile();
     PrintWriter pen = getPen2Write(f);
 
-    String currentDate; 
+    String currentDate =getCurrentDate() ; 
    
     
   private  ScheduledExecutorService scheduler =
@@ -487,7 +488,11 @@ public class FXMLDocumentController implements Initializable {
         return pen;
     }
    
-    
+    public String getCurrentDate() {
+        Date date = new Date();
+        SimpleDateFormat  formatter = new SimpleDateFormat("dd/MM/yy");
+        return formatter.format(date);
+    }
     
     
     
